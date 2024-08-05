@@ -34,8 +34,7 @@
         }
         .calculator, .table {
             flex: 1;
-            margin: 
-            10px;
+            margin: 10px;
         }
         h1 {
             text-align: center;
@@ -49,7 +48,7 @@
             margin-bottom: 5px;
             font-weight: bold;
         }
-        select, input[type="number"] {
+        select {
             width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
@@ -96,40 +95,43 @@
     <script>
         function calculateRisk() {
             const coefficients = {
-                chronicRenal: 1.013788,
-                chronicHypertension: 0.76829,
-                respiratoryDisease: 0.741287,
-                bleedingDisorder: 0.7311924,
-                hepatobiliaryDisease: 1.33055,
-                maternalAge: 0.0297989,
-                hyperlipidemia: 0.358439,
-                anticoagulation: 0.3774205,
-                intercept: -1.939254
+                renaldz: 1.033727,
+                chtn_ccmqc: 0.7842809,
+                respdz: 0.7482393,
+                bleeddz: 0.7388463,
+                gastdz: 1.343156,
+                AGE: 0.0324524,
+                anticoag: 0.3960582,
+                intercept: -2.012024 // Updated intercept value for high-risk model
             };
 
-            const chronicRenal = document.getElementById('chronicRenal').value === "Yes" ? 1 : 0;
-            const chronicHypertension = document.getElementById('chronicHypertension').value === "Yes" ? 1 : 0;
-            const respiratoryDisease = document.getElementById('respiratoryDisease').value === "Yes" ? 1 : 0;
-            const bleedingDisorder = document.getElementById('bleedingDisorder').value === "Yes" ? 1 : 0;
-            const hepatobiliaryDisease = document.getElementById('hepatobiliaryDisease').value === "Yes" ? 1 : 0;
-            const maternalAge = parseFloat(document.getElementById('maternalAge').value) || 0;
-            const hyperlipidemia = document.getElementById('hyperlipidemia').value === "Yes" ? 1 : 0;
-            const anticoagulation = document.getElementById('anticoagulation').value === "Yes" ? 1 : 0;
+            const renaldz = parseFloat(document.getElementById('renaldz').value) || 0;
+            const chtn_ccmqc = parseFloat(document.getElementById('chtn_ccmqc').value) || 0;
+            const respdz = parseFloat(document.getElementById('respdz').value) || 0;
+            const bleeddz = parseFloat(document.getElementById('bleeddz').value) || 0;
+            const gastdz = parseFloat(document.getElementById('gastdz').value) || 0;
+            const AGE = parseFloat(document.getElementById('AGE').value) || 0;
+            const anticoag = parseFloat(document.getElementById('anticoag').value) || 0;
 
             const sum = coefficients.intercept +
-                        (chronicRenal * coefficients.chronicRenal) +
-                        (chronicHypertension * coefficients.chronicHypertension) +
-                        (respiratoryDisease * coefficients.respiratoryDisease) +
-                        (bleedingDisorder * coefficients.bleedingDisorder) +
-                        (hepatobiliaryDisease * coefficients.hepatobiliaryDisease) +
-                        (maternalAge * coefficients.maternalAge) +
-                        (hyperlipidemia * coefficients.hyperlipidemia) +
-                        (anticoagulation * coefficients.anticoagulation);
+                        (renaldz * coefficients.renaldz) +
+                        (chtn_ccmqc * coefficients.chtn_ccmqc) +
+                        (respdz * coefficients.respdz) +
+                        (bleeddz * coefficients.bleeddz) +
+                        (gastdz * coefficients.gastdz) +
+                        (AGE * coefficients.AGE) +
+                        (anticoag * coefficients.anticoag);
 
             const expSum = Math.exp(sum);
             const risk = expSum / (1 + expSum);
 
-            document.getElementById('calculatedRisk').textContent = (risk * 100).toFixed(3) + '%';
+            document.getElementById('calculatedRisk').innerText = (risk * 100).toFixed(2) + '%';
+        }
+
+        function updateValue(selectElement) {
+            const selectedValue = selectElement.value;
+            const correspondingInputId = selectElement.getAttribute('data-input');
+            document.getElementById(correspondingInputId).value = selectedValue;
         }
     </script>
 </head>
@@ -140,116 +142,87 @@
             <h1>Risk Model Calculator - High Risk</h1>
             <form id="riskModelForm">
                 <div>
-                    <label for="chronicRenal">Chronic Kidney Disease:</label>
-                    <select id="chronicRenal" name="chronicRenal">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
+                    <label for="renaldz">Chronic Kidney Disease:</label>
+                    <select id="renaldzSelect" data-input="renaldz" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
                     </select>
+                    <input type="hidden" id="renaldz" value="0">
                 </div>
                 <div>
-                    <label for="chronicHypertension">Chronic Hypertension:</label>
-                    <select id="chronicHypertension" name="chronicHypertension">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
+                    <label for="chtn_ccmqc">Chronic Hypertension:</label>
+                    <select id="chtn_ccmqcSelect" data-input="chtn_ccmqc" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
                     </select>
+                    <input type="hidden" id="chtn_ccmqc" value="0">
                 </div>
                 <div>
-                    <label for="respiratoryDisease">Respiratory Disease:</label>
-                    <select id="respiratoryDisease" name="respiratoryDisease">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
+                    <label for="respdz">Respiratory Disease:</label>
+                    <select id="respdzSelect" data-input="respdz" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
                     </select>
+                    <input type="hidden" id="respdz" value="0">
                 </div>
                 <div>
-                    <label for="bleedingDisorder">Bleeding Disorder:</label>
-                    <select id="bleedingDisorder" name="bleedingDisorder">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
+                    <label for="bleeddz">Bleeding Disorder:</label>
+                    <select id="bleeddzSelect" data-input="bleeddz" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
                     </select>
+                    <input type="hidden" id="bleeddz" value="0">
                 </div>
                 <div>
-                    <label for="hepatobiliaryDisease">Hepatobiliary or GI Disease:</label>
-                    <select id="hepatobiliaryDisease" name="hepatobiliaryDisease">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
+                    <label for="gastdz">Hepatobiliary or GI Disease:</label>
+                    <select id="gastdzSelect" data-input="gastdz" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
                     </select>
+                    <input type="hidden" id="gastdz" value="0">
                 </div>
                 <div>
-                    <label for="maternalAge">Maternal Age (y):</label>
-                    <input type="number" id="maternalAge" name="maternalAge" value="35">
+                    <label for="AGE">Maternal Age:</label>
+                    <input type="number" id="AGE" name="AGE" value="35">
                 </div>
                 <div>
-                    <label for="hyperlipidemia">Hyperlipidemia:</label>
-                    <select id="hyperlipidemia" name="hyperlipidemia">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
+                    <label for="anticoag">Long Term Anticoagulation Use:</label>
+                    <select id="anticoagSelect" data-input="anticoag" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
                     </select>
-                </div>
-                <div>
-                    <label for="anticoagulation">Long Term Anticoagulation Use:</label>
-                    <select id="anticoagulation" name="anticoagulation">
-                        <option value="No">No</option>
-                        <option value="Yes">Yes</option>
-                    </select>
+                    <input type="hidden" id="anticoag" value="0">
                 </div>
                 <button type="button" onclick="calculateRisk()">Calculate Risk</button>
             </form>
             <h2>Calculated Risk: <span id="calculatedRisk">0</span></h2>
         </div>
         <div class="table">
+            <h1>WHO Risk Classifications</h1>
             <table>
-                <thead>
-                    <tr>
-                        <th>WHO Risk Class</th>
-                        <th>Description</th>
-                        <th>Conditions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>WHO Risk Class I</td>
-                        <td>No detectable increased risk of maternal mortality and no or mild increase in morbidity. (Risk: 1-4%)</td>
-                        <td>
-                            Uncomplicated, small or mild:
-                            <ul>
-                                <li>Pulmonary stenosis</li>
-                                <li>Patient ductus arteriosus</li>
-                                <li>Mitral valve prolapse</li>
-                            </ul>
-                            Successfully repaired simple lesions:
-                            <ul>
-                                <li>Atrial or ventricular septal defect</li>
-                                <li>Patent ductus arteriosus</li>
-                                <li>Anomalous pulmonary venous drainage</li>
-                            </ul>
-                            Atrial or ventricular ectopic beats, isolated
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>WHO Risk Class II</td>
-                        <td>Small increased risk of maternal mortality or moderate increase in morbidity (if otherwise well and uncomplicated). (Risk: 2-5%)</td>
-                        <td>
-                            <ul>
-                                <li>Unoperated atrial or ventricular septal defect</li>
-                                <li>Repaired tetralogy of Fallot</li>
-                                <li>Most arrhythmias</li>
-                                <li>Turner syndrome without congenital cardiac disease</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>WHO Risk Class II or III</td>
-                        <td>Risk as indicated in Class II or Class III (depending on individual). (Risk: 6-10%)</td>
-                        <td>
-                            <ul>
-                                <li>Mild left ventricular impairment (EF 45%)</li>
-                                <li>Hypertrophic cardiomyopathy</li>
-                                <li>Native or tissue valvular heart disease not considered WHO I or IV (mild mitral stenosis, moderate aortic stenosis)</li>
-                                <li>Marfan syndrome or HTAD without aortic dilatation</li>
-                                <li>Aorta <45 mm in aortic disease associated with bicuspid aortic valve</li>
-                                <li>Repaired Coarctation</li>
-                                <li>Atrioventricular septal defect</li>
-                            </ul>
-                        </td>
-                    </tr>
-                    <
+                <tr>
+                    <th>WHO Risk Class</th>
+                    <th>Description</th>
+                    <th>Conditions</th>
+                </tr>
+                <tr>
+                    <td>Class I</td>
+                    <td>No detectable increased risk of maternal mortality and no or mild increase in morbidity. (Risk: 1-4%)</td>
+                    <td>
+                        <ul>
+                            <li>Uncomplicated, small or mild:
+                                <ul>
+                                    <li>Pulmonary stenosis</li>
+                                    <li>PDA</li>
+                                    <li>ASD</li>
+                                    <li>VSD</li>
+                                    <li>Mitral valve prolapse</li>
+                                </ul>
+                            </li>
+                            <li>Successfully repaired simple lesions:
+                                <ul>
+                                    <li>Atrial or ventricular septal defect</li>
+                                    <li>Patent ductus arteriosus</li>
+                                    <li>Anomalous pulmonary venous drainage</li>
+                                </ul>
+                            </li>

@@ -3,7 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select Cardiac Diagnosis</title>
+    <title>Select Risk Category</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #333;
+        }
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://example.com/pregnant-woman-beating-heart.gif') no-repeat center center fixed;
+            background-size: cover;
+            z-index: -1;
+        }
+        .content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+        }
+        .risk-group {
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        a {
+            display: block;
+            padding: 10px;
+            background-color: #0056b3;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+        }
+        a:hover {
+            background-color: #004494;
+        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Risk Category</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -61,105 +123,54 @@
             background-color: #004494;
         }
     </style>
-    <script>
-        function navigateToRiskModel(diagnosis) {
-            const lowRisk = [
-                "Mitral prolapse (0.9%)",
-                "PDA, ASD, VSD, Repaired Heart Disease (3.8%)",
-                "Pulmonary artery insufficiency and stenosis (4.1%)",
-                "Ectopic beats (4.1%)",
-                "Congenital insufficiency of aortic valve (4.6%)",
-                "Coarctation of aorta (5.1%)",
-                "Aortic stenosis (5.5%)",
-                "Presence of prosthetic heart valve (8.8%)",
-                "Supraventricular arrhythmias (9.0%)",
-                "Heart block and other conduction disorders (9.0%)"
-            ];
-
-            const moderateRisk = [
-                "Hypertensive heart disease without heart failure (10.4%)",
-                "Single ventricle disorders (10.7%)",
-                "Aortic valve insufficiency (11.8%)",
-                "Ischemic heart disease (16.4%)",
-                "Tricuspid insufficiency (16.7%)",
-                "Mitral insufficiency (17.3%)",
-                "Mitral stenosis (17.9%)",
-                "Hypertrophic cardiomyopathy (18.6%)",
-                "Cardiac device (20.5%)"
-            ];
-
-            const highRisk = [
-                "Aortic valve dilation (23.5%)",
-                "Tricuspid stenosis (27.8%)",
-                "Dilated cardiomyopathy (47.0%)",
-                "Ventricular tachycardia (48.6%)",
-                "Restrictive cardiomyopathy (56.4%)",
-                "Pulmonary HTN (56.7%)",
-                "Peripartum cardiomyopathy (56.8%)",
-                "Chronic heart failure (64.2%)",
-                "Heart transplant (77.4%)"
-            ];
-
-            if (lowRisk.includes(diagnosis)) {
-                window.location.href = 'low_risk.html';
-            } else if (moderateRisk.includes(diagnosis)) {
-                window.location.href = 'moderate_risk.html';
-            } else if (highRisk.includes(diagnosis)) {
-                window.location.href = 'high_risk.html';
-            } else {
-                alert('Unknown diagnosis');
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="background"></div>
     <div class="content">
-        <h1>Select Cardiac Diagnosis</h1>
+        <h1>Select Risk Category</h1>
         
         <div class="risk-group">
-            <h2>Low Risk Group</h2>
+            <h2>Low Risk Group (<5% risk of cardiovascular event)</h2>
             <ul>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Mitral prolapse (0.9%)')">Mitral prolapse (0.9%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('PDA, ASD, VSD, Repaired Heart Disease (3.8%)')">PDA, ASD, VSD, Repaired Heart Disease (3.8%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Pulmonary artery insufficiency and stenosis (4.1%)')">Pulmonary artery insufficiency and stenosis (4.1%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Ectopic beats (4.1%)')">Ectopic beats (4.1%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Congenital insufficiency of aortic valve (4.6%)')">Congenital insufficiency of aortic valve (4.6%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Coarctation of aorta (5.1%)')">Coarctation of aorta (5.1%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Aortic stenosis (5.5%)')">Aortic stenosis (5.5%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Presence of prosthetic heart valve (8.8%)')">Presence of prosthetic heart valve (8.8%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Supraventricular arrhythmias (9.0%)')">Supraventricular arrhythmias (9.0%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Heart block and other conduction disorders (9.0%)')">Heart block and other conduction disorders (9.0%)</a></li>
+                <li><a href="low_risk.html">Mitral prolapse (0.9%)</a></li>
+                <li><a href="low_risk.html">PDA, ASD, VSD, or other simple, repaired congenital heart disease (3.8%)</a></li>
+                <li><a href="low_risk.html">Pulmonary artery insufficiency and stenosis (4.1%)</a></li>
+                <li><a href="low_risk.html">Ectopic beats (4.1%)</a></li>
+                <li><a href="low_risk.html">Congenital insufficiency of aortic valve (4.6%)</a></li>
             </ul>
         </div>
         
         <div class="risk-group">
-            <h2>Moderate Risk Group</h2>
+            <h2>Moderate Risk Group (5-20% risk of cardiovascular event)</h2>
             <ul>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Hypertensive heart disease without heart failure (10.4%)')">Hypertensive heart disease without heart failure (10.4%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Single ventricle disorders (10.7%)')">Single ventricle disorders (10.7%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Aortic valve insufficiency (11.8%)')">Aortic valve insufficiency (11.8%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Ischemic heart disease (16.4%)')">Ischemic heart disease (16.4%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Tricuspid insufficiency (16.7%)')">Tricuspid insufficiency (16.7%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Mitral insufficiency (17.3%)')">Mitral insufficiency (17.3%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Mitral stenosis (17.9%)')">Mitral stenosis (17.9%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Hypertrophic cardiomyopathy (18.6%)')">Hypertrophic cardiomyopathy (18.6%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Cardiac device (20.5%)')">Cardiac device (20.5%)</a></li>
+                <li><a href="moderate_risk.html">Coarctation of aorta without aortic valve dilation, insufficiency, mitral regurgitation, or ventricular dysfunction/heart failure (5.1%)</a></li>
+                <li><a href="moderate_risk.html">Aortic stenosis without aortic or mitral insufficiency, ischemic heart disease, arrhythmia, or ventricular dysfunction/heart failure (5.5%)</a></li>
+                <li><a href="moderate_risk.html">Supraventricular arrhythmias (9.0%)</a></li>
+                <li><a href="moderate_risk.html">Presence of prosthetic heart valve (8.8%)</a></li>
+                <li><a href="moderate_risk.html">Heart block and other conduction disorders (9.0%)</a></li>
+                <li><a href="moderate_risk.html">Hypertensive heart disease without heart failure (10.4%)</a></li>
+                <li><a href="moderate_risk.html">Complex congenital heart disease (10.7%)</a></li>
+                <li><a href="moderate_risk.html">Aortic valve insufficiency (11.8%)</a></li>
+                <li><a href="moderate_risk.html">Ischemic heart disease (16.4%)</a></li>
+                <li><a href="moderate_risk.html">Tricuspid insufficiency (16.7%)</a></li>
+                <li><a href="moderate_risk.html">Mitral insufficiency (17.3%)</a></li>
+                <li><a href="moderate_risk.html">Mitral stenosis (17.9%)</a></li>
+                <li><a href="moderate_risk.html">Hypertrophic cardiomyopathy (18.6%)</a></li>
+                <li><a href="moderate_risk.html">Cardiac device (20.5%)</a></li>
             </ul>
         </div>
         
         <div class="risk-group">
-            <h2>High Risk Group</h2>
+            <h2>High Risk Group (>20% risk of cardiovascular event)</h2>
             <ul>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Aortic valve dilation (23.5%)')">Aortic valve dilation (23.5%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Tricuspid stenosis (27.8%)')">Tricuspid stenosis (27.8%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Dilated cardiomyopathy (47.0%)')">Dilated cardiomyopathy (47.0%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Ventricular tachycardia (48.6%)')">Ventricular tachycardia (48.6%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Restrictive cardiomyopathy (56.4%)')">Restrictive cardiomyopathy (56.4%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Pulmonary HTN (56.7%)')">Pulmonary HTN (56.7%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Peripartum cardiomyopathy (56.8%)')">Peripartum cardiomyopathy (56.8%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Chronic heart failure (64.2%)')">Chronic heart failure (64.2%)</a></li>
-                <li><a href="javascript:void(0)" onclick="navigateToRiskModel('Heart transplant (77.4%)')">Heart transplant (77.4%)</a></li>
+                <li><a href="high_risk.html">Tricuspid stenosis (27.8%)</a></li>
+                <li><a href="high_risk.html">Dilated cardiomyopathy (47.0%)</a></li>
+                <li><a href="high_risk.html">Ventricular tachycardia (48.6%)</a></li>
+                <li><a href="high_risk.html">Restrictive cardiomyopathy (56.4%)</a></li>
+                <li><a href="high_risk.html">Pulmonary HTN (56.7%)</a></li>
+                <li><a href="high_risk.html">Peripartum cardiomyopathy (56.8%)</a></li>
+                <li><a href="high_risk.html">Chronic heart failure (64.2%)</a></li>
+                <li><a href="high_risk.html">Heart transplant with or without complication (77.4%)</a></li>
             </ul>
         </div>
     </div>
