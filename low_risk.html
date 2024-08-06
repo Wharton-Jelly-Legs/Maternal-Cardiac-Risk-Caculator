@@ -48,7 +48,7 @@
             margin-bottom: 5px;
             font-weight: bold;
         }
-        input[type="number"], select {
+        select, input[type="number"] {
             width: 100%;
             padding: 8px;
             border: 1px solid #ccc;
@@ -127,6 +127,12 @@
 
             document.getElementById('calculatedRisk').innerText = (risk * 100).toFixed(2) + '%';
         }
+
+        function updateValue(selectElement) {
+            const selectedValue = selectElement.value;
+            const correspondingInputId = selectElement.getAttribute('data-input');
+            document.getElementById(correspondingInputId).value = selectedValue;
+        }
     </script>
 </head>
 <body>
@@ -137,23 +143,43 @@
             <form id="riskModelForm">
                 <div>
                     <label for="renaldz">Chronic Kidney Disease:</label>
-                    <input type="number" id="renaldz" name="renaldz" value="0">
+                    <select id="renaldzSelect" data-input="renaldz" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                    <input type="hidden" id="renaldz" value="0">
                 </div>
                 <div>
                     <label for="chtn_ccmqc">Chronic Hypertension:</label>
-                    <input type="number" id="chtn_ccmqc" name="chtn_ccmqc" value="0">
+                    <select id="chtn_ccmqcSelect" data-input="chtn_ccmqc" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                    <input type="hidden" id="chtn_ccmqc" value="0">
                 </div>
                 <div>
                     <label for="respdz">Respiratory Disease:</label>
-                    <input type="number" id="respdz" name="respdz" value="0">
+                    <select id="respdzSelect" data-input="respdz" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                    <input type="hidden" id="respdz" value="0">
                 </div>
                 <div>
                     <label for="bleeddz">Bleeding Disorder:</label>
-                    <input type="number" id="bleeddz" name="bleeddz" value="0">
+                    <select id="bleeddzSelect" data-input="bleeddz" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                    <input type="hidden" id="bleeddz" value="0">
                 </div>
                 <div>
                     <label for="gastdz">Hepatobiliary or GI Disease:</label>
-                    <input type="number" id="gastdz" name="gastdz" value="0">
+                    <select id="gastdzSelect" data-input="gastdz" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                    <input type="hidden" id="gastdz" value="0">
                 </div>
                 <div>
                     <label for="AGE">Maternal Age:</label>
@@ -161,7 +187,11 @@
                 </div>
                 <div>
                     <label for="anticoag">Long Term Anticoagulation Use:</label>
-                    <input type="number" id="anticoag" name="anticoag" value="0">
+                    <select id="anticoagSelect" data-input="anticoag" onchange="updateValue(this)">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                    <input type="hidden" id="anticoag" value="0">
                 </div>
                 <button type="button" onclick="calculateRisk()">Calculate Risk</button>
             </form>
@@ -222,4 +252,49 @@
                             <li>Native or tissue valvular heart disease not considered WHO I or IV (mild mitral stenosis, moderate aortic stenosis)</li>
                             <li>Marfan syndrome or HTAD without aortic dilatation</li>
                             <li>Aorta <45 mm in aortic disease associated with bicuspid aortic valve</li>
-                            <li>Repaired
+                            <li>Repaired Coarctation</li>
+                            <li>Atrioventricular septal defect</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Class III</td>
+                    <td>Significantly increased risk of maternal mortality or severe morbidity. Expert counseling required. If pregnancy is decided upon, intensive specialist cardiac and obstetric monitoring needed throughout pregnancy, childbirth, and the puerperium. (Risk: 11-19%)</td>
+                    <td>
+                        <ul>
+                            <li>Mechanical valve</li>
+                            <li>Systemic right ventricle - Systemic right ventricle with good or mildly decreased ventricular function</li>
+                            <li>Uncomplicated Fontan circulation</li>
+                            <li>Cyanotic heart disease (unrepaired)</li>
+                            <li>Other complex congenital heart disease</li>
+                            <li>Moderate mitral stenosis</li>
+                            <li>Ventricular tachycardia</li>
+                            <li>Aortic dilatation 40-45 mm in Marfan Syndrome</li>
+                            <li>Aortic dilatation 45-50 mm in aortic disease associated with bicuspid aortic valve, Turner syndrome ASI 20-25 mm/m<sup>2</sup>, Tetralogy of Fallot <50mm</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Class IV</td>
+                    <td>Extremely high risk of maternal mortality or severe morbidity; pregnancy contraindicated. If pregnancy occurs, termination should be discussed. If pregnancy continues, care as for class III. (Risk: >27%)</td>
+                    <td>
+                        <ul>
+                            <li>Pulmonary arterial hypertension of any cause</li>
+                            <li>Severe systemic ventricular dysfunction (LVEF <30%, NYHA III-IV)</li>
+                            <li>Previous peripartum cardiomyopathy with any residual impairment of left ventricular function</li>
+                            <li>Severe symptomatic mitral or aortic stenosis</li>
+                            <li>Marfan syndrome with aorta dilated >45 mm</li>
+                            <li>Aortic dilation >50 mm in aortic disease associated with bicuspid aortic valve</li>
+                            <li>Native severe Coarctation</li>
+                            <li>Systemic right ventricle with moderate to severely reduced ventricular function</li>
+                            <li>Vascular Ehlers-Danlos</li>
+                            <li>Fontan circulation with any complication</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
